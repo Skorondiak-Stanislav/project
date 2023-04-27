@@ -2,7 +2,7 @@
 function GenerateRandomIntNumber(minValue = 1, maxValue = 10) {
     return Math.floor(Math.random() * (maxValue - minValue)) + minValue;
 }
-// перетасовуэмо масив
+// перетасовуємо масив
 function ShuffleArray(arr) {
     return arr.sort(() => Math.random() - 0.5);
 }
@@ -14,9 +14,10 @@ function GenerateQuadraticEquationQuestion() {
     let x2 = GenerateRandomIntNumber();
     let question = `<p>Розв'яжіть квадратне рівняння:</p>
     <p>${createQuadraticEquationUsingVietasFormula(x1, x2)}</p>`;
-    //выдповіді містять правильну
+    //відповіді містять правильну
     let correctAnswer = `x1=${x1}, x2=${x2}`;
     let answers = [correctAnswer];
+
     //додаємо ще 3 неправильні відповіді щоб всього їх було 4
     while (answers.length < 4) {
         let x1 = GenerateRandomIntNumber();
