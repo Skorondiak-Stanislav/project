@@ -1,4 +1,7 @@
 const questions = [
+	// перші 2 запитання про квадратне рівняння
+	GenerateQuadraticEquationQuestion(),
+	GenerateQuadraticEquationQuestion(),
 	{
 		question: "Якою мовою реалізовано сайт?",
 		answers: ["Java", "C", "Python", "JavaScript"],
@@ -30,6 +33,7 @@ const questions = [
 		correct: 2,
 	},
 ];
+
 
 // знаходимо елементи
 const headerContainer = document.querySelector('#header')
