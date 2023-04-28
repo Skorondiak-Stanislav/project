@@ -50,24 +50,24 @@ submitBtn.onclick = checkAnswer;
 
 
 // функція яка очищує HTML розмітку
-function clearPage(){ 
+function clearPage() {
 	headerContainer.innerHTML = '';
 	listContainer.innerHTML = '';
 }
 
 // функція яка відображає питання
-function showQuestion(){
+function showQuestion() {
 	console.log('showQuestion');
-	
-    // створюєм шаблон
+
+	// створюєм шаблон
 	const headerTemplate = '<h2 class="title">%title%</h2>';
 	const title = headerTemplate.replace('%title%', questions[questionIndex]['question'])
-    headerContainer.innerHTML = title;
-	
+	headerContainer.innerHTML = title;
+
 	let answerNumber = 1;
-	for (answerText of questions[questionIndex]['answers']){ 
-		
-		const questionTemplate = 
+	for (answerText of questions[questionIndex]['answers']) {
+
+		const questionTemplate =
 			`<li>
 				<label>
 					<input value="%number%" type="radio" class="answer" name="answer" />
@@ -76,24 +76,26 @@ function showQuestion(){
      		</li>`
 
 		const answerHTML = questionTemplate
-								.replace('%answer%', answerText)
-								.replace('%number%', answerNumber)
-		
+			.replace('%answer%', answerText)
+			.replace('%number%', answerNumber)
+
 		listContainer.innerHTML += answerHTML;
-		
+
 		answerNumber++;
 	}
-
+	// викликаємо заміну формул примусово
+	if (MathJax.typeset)
+	 	MathJax.typeset();
 }
 
-function checkAnswer(){
+function checkAnswer() {
 
 	// знаходимо вибрану радіо кнопку
 	const checkedRadio = listContainer.querySelector('input[type="radio"]:checked')
-	
+
 	// якщо варіант відповіді не вибрано то нічого не робимо, 
 	// просто виходимо з функції
-	if (!checkedRadio){
+	if (!checkedRadio) {
 		submitBtn.blur();
 		return
 	}
@@ -106,7 +108,7 @@ function checkAnswer(){
 		score++;
 	}
 
-	if (questionIndex !== questions.length -1){
+	if (questionIndex !== questions.length - 1) {
 		console.log('це не останнє питання');
 		questionIndex++;
 		clearPage();
@@ -119,7 +121,7 @@ function checkAnswer(){
 }
 
 // функція яка буде відображати результати
-function showResults(){
+function showResults() {
 	console.log('showResults started!');
 	console.log(score);
 
@@ -131,7 +133,7 @@ function showResults(){
 
 	let title, message;
 	// варіанти заголовків і тексту повідомлення
-	if (score === questions.length){
+	if (score === questions.length) {
 		title = 'Вітаю!🎉';
 		message = 'Ви відповіли правильно на всі питання!😎🔥';
 	} else if ((score * 100) / questions.length >= 50) {
@@ -141,22 +143,22 @@ function showResults(){
 		title = 'Підготуйся краще!😐';
 		message = 'Покищо в тебе менше половини правильних питань.';
 	}
-    
-    // Результат
+
+	// Результат
 	let result = `${score} iз ${questions.length}`;
 
 	// кінцева відповідь, підставляємо данні в шаблон
 	const finalMessage = resultsTemplate
-							.replace('%title%', title)
-							.replace('%message%', message)
-							.replace('%result%', result)
+		.replace('%title%', title)
+		.replace('%message%', message)
+		.replace('%result%', result)
 
 	headerContainer.innerHTML = finalMessage;
 
 	// змінюємо кнопку на "грати заново"
 	submitBtn.blur();
 	submitBtn.innerText = 'Грати заново';
-	submitBtn.onclick = function(){
+	submitBtn.onclick = function () {
 		history.go()
 	};
 }

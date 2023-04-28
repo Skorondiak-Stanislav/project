@@ -31,8 +31,8 @@ function GenerateQuadraticEquationQuestion() {
     }
     //тасуємо відповіді
     answers = ShuffleArray(answers);
-    //знаходимо індекс правильної відповіді
-    let correct = answers.indexOf(correctAnswer);
+    //знаходимо індекс правильної відповіді (індексація з 0, тому додаємо 1)
+    let correct = answers.indexOf(correctAnswer) + 1;
 
     return {
         question,
